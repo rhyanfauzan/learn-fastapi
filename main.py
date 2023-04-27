@@ -32,10 +32,18 @@ transaction = []
 
 # start main ------------------------------------------
 
-# endpoint Get - query paramameter
+# endpoint Get - query paramameter & FILTER list by tipe
 @application.get("/transaction")
-def get_transaction(tipe:str,amount:int):
-    return f"balikan transaksi dengan tipe {tipe} & jumlah {amount}"
+def get_transaction(tipe:Optional[Tipe] = None):
+    if tipe is not None:
+        result_filter = []
+        for t in transaction:
+            t = InputTransaction.parse_obj(t)
+            if t.tipe == tipe:
+                result_filter.append(t)
+    else:
+        result_filter = transaction
+    return result_filter
 
 # endpoint Get - Path paramameter
 @application.get("/transaction/{tipe}")
