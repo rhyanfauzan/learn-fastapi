@@ -5,7 +5,7 @@ from enums.enum_tipe import Tipe
 from models.model_transaction import Transaction
 from service.service_transaction import ServiceTransaction
 
-router_transaction = APIRouter(prefix="/api/v1")
+router_transaction = APIRouter(prefix="/api/v1", tags=['Transaction'])
 
 @router_transaction.post("/transaction")
 def insert_new_transaction(
