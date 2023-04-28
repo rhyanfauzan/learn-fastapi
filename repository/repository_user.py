@@ -12,6 +12,13 @@ class RepositoryUser:
     def insert_new_user(self, new_user: InputUser):
         return self.repository.insert_one(new_user.dict())
     
+    #checking username
+    def check_user(self, username:str):
+        result = self.repository.find_one({"username": username})
+        if result is not None:
+            return User.parse_obj(result)
+        return None
+    
     #login
     def auth_user(self, input_login: InputLogin):
         result = self.repository.find_one(
